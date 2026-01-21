@@ -2,6 +2,32 @@
 
 Este projeto implementa um pipeline de dados fim-a-fim para extração, processamento e análise de ativos da B3 (PETR4 e BOVA11).
 
+## 🏗️ Arquitetura do Projeto
+O diagrama abaixo descreve o fluxo de dados desde a extração local até a disponibilização para análise:
+
+graph LR
+    subgraph Local_Environment [Ambiente Local]
+        A[Python Script: yfinance]
+    end
+
+    subgraph AWS_Cloud [Nuvem AWS]
+        B[(Amazon S3: Raw)] 
+        C[AWS Glue Job: PySpark]
+        D[(Amazon S3: Refined)]
+        E[AWS Glue Crawler]
+        F[AWS Glue Data Catalog]
+        G[Amazon Athena]
+    end
+
+    A -->|Ingestão via Boto3| B
+    B -->|Leitura Spark| C
+    C -->|Transformação/ML| D
+    D -->|Escaneamento| E
+    E -->|Criação de Tabelas| F
+    F --- G
+    D --- G
+
+
 ## 🚀 Arquitetura da Solução
 A solução utiliza uma arquitetura de Data Lake na AWS dividida em camadas:
 - **Extração**: Script Python (`yfinance`) com tratamento de precisão de timestamps para compatibilidade Spark.
