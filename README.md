@@ -5,6 +5,7 @@ Este projeto implementa um pipeline de dados fim-a-fim para extração, processa
 ## 🏗️ Arquitetura do Projeto
 O diagrama abaixo descreve o fluxo de dados desde a extração local até a disponibilização para análise:
 
+```mermaid
 graph LR
     subgraph Local_Environment [Ambiente Local]
         A[Python Script: yfinance]
@@ -26,6 +27,8 @@ graph LR
     E -->|Criação de Tabelas| F
     F --- G
     D --- G
+```
+
 
 
 ## 🚀 Arquitetura da Solução
