@@ -9,10 +9,10 @@ import sys
 def extract():
     try:
         tickers = load_tickers()
-        base_raw_path = Path("data/raw")
+        base_raw_path = Path("data","raw")
 
         for t in tickers:
-            print(f"Processando {t}...")
+            print(f"Processando {t}... em {base_raw_path}")
             df = yf.download(f"{t}.SA", period="5d", interval="1d")
 
             if not df.empty:
